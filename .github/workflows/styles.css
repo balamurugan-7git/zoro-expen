@@ -1,0 +1,616 @@
+:root {
+    /* Zoro Theme Palette */
+    --bg-dark: #050505;
+    --bg-panel: #121212;
+
+    --neon-green: #39ff14;
+    /* Zoro Green */
+    --neon-green-dim: rgba(57, 255, 20, 0.1);
+
+    --neon-red: #ff003c;
+    --neon-red-dim: rgba(255, 0, 60, 0.1);
+
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.03);
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon-green) transparent;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Dynamic Background */
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 15% 50%, rgba(57, 255, 20, 0.03) 0%, transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(57, 255, 20, 0.02) 0%, transparent 25%);
+    filter: blur(40px);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar */
+.glass-sidebar {
+    width: 280px;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.4s ease;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--neon-green-dim);
+}
+
+.logo i {
+    color: var(--neon-green);
+    filter: drop-shadow(0 0 5px var(--neon-green));
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    flex-grow: 1;
+    margin-top: 3rem;
+}
+
+.nav-links li {
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--neon-green-dim);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.nav-links li:hover::before {
+    width: 100%;
+}
+
+.nav-links li:hover {
+    color: var(--text-primary);
+    transform: translateX(8px);
+}
+
+.nav-links li.active {
+    background: rgba(57, 255, 20, 0.1);
+    color: var(--neon-green);
+    border: 1px solid rgba(57, 255, 20, 0.2);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    overflow-y: auto;
+    perspective: 1000px;
+}
+
+.glass-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.header-text h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.asset-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-green);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+}
+
+.asset-pill:hover {
+    background: var(--neon-green);
+    color: black;
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+.asset-pill i {
+    font-size: 1.1rem;
+}
+
+/* Dashboard Cards - 3D Effect */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.glass-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.card-amount {
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.card-amount.income {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green-dim);
+}
+
+.card-amount.expense {
+    color: var(--neon-red);
+    text-shadow: 0 0 10px var(--neon-red-dim);
+}
+
+/* Excel Habit Grid */
+.habit-grid-container {
+    overflow-x: auto;
+}
+
+.habit-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.habit-table th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.habit-row {
+    background: var(--bg-panel);
+    transition: transform 0.2s;
+}
+
+.habit-row td {
+    padding: 1rem;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.habit-row td:first-child {
+    border-left: 1px solid var(--glass-border);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.habit-row td:last-child {
+    border-right: 1px solid var(--glass-border);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Checkbox Grid Items */
+.check-cell {
+    width: 40px;
+    text-align: center;
+}
+
+.custom-check {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--glass-border);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.custom-check:hover {
+    border-color: var(--text-secondary);
+}
+
+.custom-check.checked {
+    background: var(--neon-green);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green-dim);
+}
+
+.custom-check i {
+    opacity: 0;
+    color: black;
+    transform: scale(0.5);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.custom-check.checked i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Journal/Notes */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.note-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-card:hover {
+    border-color: var(--neon-green);
+    transform: translateY(-5px);
+}
+
+.note-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+}
+
+.note-preview {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.new-note-card {
+    border: 2px dashed var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-secondary);
+    background: transparent;
+}
+
+.new-note-card:hover {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+/* Modals & Forms */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3000;
+    display: flex;
+    /* Ensure flex for centering */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.glass-modal {
+    background: #0F0F0F;
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.15);
+}
+
+.glass-modal h2 {
+    color: var(--neon-green);
+}
+
+input,
+textarea {
+    background: #1A1A1A;
+    border: 1px solid #333;
+    color: white;
+    transition: all 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--neon-green);
+    background: #222;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+}
+
+.btn-primary {
+    background: var(--neon-green);
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+
+.btn-primary:hover {
+    background: #fff;
+    box-shadow: 0 0 15px white;
+}
+
+.add-habit-btn-sidebar {
+    background: var(--neon-green);
+    color: black;
+    margin-top: auto;
+    box-shadow: 0 0 15px var(--neon-green-dim);
+}
+
+.add-habit-btn-sidebar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px var(--neon-green-dim);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-green);
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Login Overlay Styles */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transition: all 0.5s ease;
+}
+
+.glass-login-card {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--neon-green);
+    border-radius: 24px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    box-shadow: 0 0 50px rgba(57, 255, 20, 0.1);
+}
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.login-logo i {
+    color: var(--neon-green);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.3s;
+}
+
+.google-btn {
+    background: white;
+    color: black;
+}
+
+.google-btn:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+.guest-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+}
+
+.guest-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+/* Future Expenses Card Styles */
+.future-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.btn-convert {
+    background: transparent;
+    border: 1px solid var(--neon-red);
+    color: var(--neon-red);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.btn-convert:hover {
+    background: var(--neon-red);
+    color: black;
+    box-shadow: 0 0 10px var(--neon-red-dim);
+}
+
+.type-btn[data-type="future"].active {
+    background: #FFD700;
+    /* Gold for Future */
+    color: black;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Quest Mode Styling */
+.quest-btn {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: black;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.quest-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.quest-badge {
+    background: black;
+    color: #FFD700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-left: auto;
+}
+
+/* Future Notes Field */
+.notes-group textarea {
+    font-family: var(--font-body);
+    resize: vertical;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+}
